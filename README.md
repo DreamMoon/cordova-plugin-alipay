@@ -97,3 +97,21 @@ The following directions are for cordova-cli (most people).
 	    alert('error!');
 	  });
 ```
+
+###应用该插件后ionic2打包为ios的注意事项
+ - 应用该插件后，ionic2直接打包为android，支付宝支付的功能在app上使用是没有什么问题的。但是在ios上却没有那么顺利了，可能会出现这样的错误（在ionic build ios 或 xcode运行app项目的过程中）：
+```
+	Undefined symbols for architecture i386: “_deflate”, referenced from 
+```
+
+ - 解决方法的步骤如下：
+1.go to target section；
+2.Build Phases tab；
+3.Link Binaries With Libraries；
+4.click on + button；
+5.search libz.tbd (or libz.dylib)；
+6.click on add button.
+
+ - 参考：http://stackoverflow.com/questions/18053546/undefined-symbols-for-architecture-i386-deflate-referenced-from-platcompres 
+ 
+ 
