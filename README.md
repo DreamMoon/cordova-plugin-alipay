@@ -85,7 +85,7 @@ The following directions are for cordova-cli (most people).
 
 ```
  - 3、正式使用：在需要调用支付宝支付的地方，加入如下语句：
- ```ts
+```ts
 	//第一步：订单在服务端签名生成订单信息，具体请参考官网进行签名处理
 	let payInfo  = "xxx";
 
