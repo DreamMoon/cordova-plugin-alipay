@@ -20,7 +20,7 @@ The following directions are for cordova-cli (most people).
 * Add this plugin
 
   ```sh
-  cordova plugin add https://github.com/offbye/cordova-plugin-alipay.git --variable PARTNER_ID=[你的商户PID可以在账户中查询]
+  cordova plugin add https://github.com/DreamMoon/cordova-plugin-alipay.git --variable PARTNER_ID=[你的商户PID可以在账户中查询]
   ```
   （对于android，可以不传PARTNER_ID）
 
@@ -52,4 +52,48 @@ The following directions are for cordova-cli (most people).
 				 * docType=1) 建议商户依赖异步通知
 				 */
 
+```
+
+### ionic2 使用该插件的说明
+  该cordova插件是源于 https://github.com/offbye/cordova-plugin-alipay 。
+ - 在ionic2使用该插件的过程中所出现的问题进行解决（AliPay对象不存在的问题）：
+  修改plugin.xml文件中的：
+```xml
+
+   <js-module src="www/AliPay.js" name="AliPay">
+     	<!-- <clobbers target="cordova.plugins.AliPay" /> -->
+	    <clobbers target="AliPay" />
+    </js-module>
+
+```
+  
+ - 修复ios中路径出错问题：
+  plugin.xml
+```xml
+
+   <!-- <resource-file src="src/lib/AlipaySDK.bundle"/> -->
+        <resource-file src="src/ios/lib/AlipaySDK.bundle"/>
+
+```
+
+###在ionic2中使用该插件
+ - 1、按照上述的说明到ionic2项目中安装该插件；
+ - 2、在需要使用该插件的.ts文件中的开头处（一般在 import 语句下面、@Commponent装饰器语句上面）声明AliPay对象：
+```ts
+
+   declare var AliPay: any;
+
+```
+ - 3、正式使用：在需要调用支付宝支付的地方，加入如下语句：
+ ```ts
+	//第一步：订单在服务端签名生成订单信息，具体请参考官网进行签名处理
+	let payInfo  = "xxx";
+
+	//第二步：调用支付插件
+	AliPay.pay(payInfo,
+	  function success(e){
+	    alert('success!');
+	  },function error(e){
+	    alert('error!');
+	  });
 ```
